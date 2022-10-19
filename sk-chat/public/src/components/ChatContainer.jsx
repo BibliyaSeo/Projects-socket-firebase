@@ -20,6 +20,7 @@ export default function ChatContainer({ currentChat }) {
         <Logout />
       </div>
       <Messages />
+      {/* 내일 할일 메시지 구성/소캣 연결 / 완성/ 디자인 손보기 */}
       <ChatInput handleSendMsg={handleSendMsg} />
     </Container>
   );
