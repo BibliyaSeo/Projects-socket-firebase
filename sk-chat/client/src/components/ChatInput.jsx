@@ -4,7 +4,7 @@ import Picker from "emoji-picker-react";
 import { IoMdSend } from "react-icons/io";
 import { BsEmojiSmileFill } from "react-icons/bs";
 
-export default function ChatInput() {
+export default function ChatInput({ handleSendMsg }) {
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
   const [msg, setMsg] = useState("");
 
@@ -19,6 +19,14 @@ export default function ChatInput() {
     setMsg(message);
   };
 
+  const sendChat = (e) => {
+    e.preventDefault();
+    if (msg.length > 0) {
+      handleSendMsg(msg);
+      setMsg("");
+    }
+  };
+
   return (
     <Container>
       <div className="button-container">
@@ -29,7 +37,7 @@ export default function ChatInput() {
           )}
         </div>
       </div>
-      <form className="input-container">
+      <form className="input-container" onSubmit={(e) => sendChat(e)}>
         <input
           type={"text"}
           placeholder="type your message here"
@@ -69,6 +77,26 @@ const Container = styled.div`
       .EmojiPickerReact {
         position: absolute;
         top: -370px;
+        background-color: #080420;
+        box-shadow: 0 5px 10px #9a86f3;
+        border-color: #9186f3;
+        .epr-body::-webkit-scrollbar {
+          background-color: #080420;
+          width: 5px;
+          &-thumb {
+            background-color: #9186f3;
+          }
+        }
+        .epr-emoji-category-label {
+          background-color: #080420;
+        }
+        .epr-search {
+          background-color: transparent;
+          border-color: #9186f3;
+        }
+        .epr-preview {
+          display: none;
+        }
       }
     }
   }
@@ -81,7 +109,6 @@ const Container = styled.div`
     background-color: #ffffff34;
     input {
       width: 90%;
-      height: 60%;
       background-color: transparent;
       color: white;
       border: none;
